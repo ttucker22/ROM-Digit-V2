@@ -21,6 +21,12 @@
         .triangle {
             color: green;
         }
+        .no-bottom-border {
+            border-bottom: none;
+        }
+        .vertical-center {
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body>
@@ -69,21 +75,19 @@
             <th>Imp%</th>
         </tr>
         <tr>
-            <th rowspan="2">Thumb</th>
-            <td>Radial Abduction</td>
+            <th rowspan="6">CMC</th>
+            <td rowspan="2" class="no-bottom-border vertical-center">Radial Abduction</td>
             <td>Angle°</td>
             <td><span class="triangle">▼</span> <input type="number" id="radial-abduction"></td>
             <td><span class="triangle">▼</span> <input type="number" id="radial-abduction-ankylosis"></td>
             <td rowspan="2" id="radial-abduction-imp">0</td>
         </tr>
         <tr>
-            <td></td>
             <td>Imp%</td>
             <td id="radial-abduction-motion-imp">0</td>
             <td id="radial-abduction-ankylosis-imp">0</td>
         </tr>
         <tr>
-            <th rowspan="4">CMC</th>
             <td rowspan="2">Adduction</td>
             <td>CM</td>
             <td><span class="triangle">▼</span> <input type="number" id="cmc-adduction" step="0.1"></td>
