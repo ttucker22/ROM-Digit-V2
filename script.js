@@ -543,15 +543,45 @@ function updateImpairment() {
     let oppositionTotalImp = Math.max(oppositionImp, oppositionAnkylosisImp);
     document.getElementById('opposition-imp').textContent = oppositionTotalImp;
 
-// Total Digit Impairment
+    // Calculate subtotals
+    let ipTotalImp = Math.max(ipFlexionImp + ipExtensionImp, ipAnkylosisImp);
+    let mpTotalImp = Math.max(mpFlexionImp + mpExtensionImp, mpAnkylosisImp);
+    let radialAbductionTotalImp = Math.max(radialAbductionImp, radialAbductionAnkylosisImp);
+    let cmcAdductionTotalImp = Math.max(cmcAdductionImp, cmcAdductionAnkylosisImp);
+    let oppositionTotalImp = Math.max(oppositionImp, oppositionAnkylosisImp);
+
+    // Update individual impairment displays
+    document.getElementById('ip-imp').textContent = ipTotalImp;
+    document.getElementById('mp-imp').textContent = mpTotalImp;
+    document.getElementById('radial-abduction-imp').textContent = radialAbductionTotalImp;
+    document.getElementById('cmc-adduction-imp').textContent = cmcAdductionTotalImp;
+    document.getElementById('opposition-imp').textContent = oppositionTotalImp;
+
+    // Calculate total impairment
     const totalDigitImp = ipTotalImp + mpTotalImp + radialAbductionTotalImp + cmcAdductionTotalImp + oppositionTotalImp;
     
     // Calculate Hand Impairment (40% of Digit Impairment)
     const handImp = Math.round(totalDigitImp * 0.4);
 
+    // Create the addition string
+    let additionString = "";
+    if (ipTotalImp > 0) additionString += ipTotalImp + " + ";
+    if (mpTotalImp > 0) additionString += mpTotalImp + " + ";
+    if (radialAbductionTotalImp > 0) additionString += radialAbductionTotalImp + " + ";
+    if (cmcAdductionTotalImp > 0) additionString += cmcAdductionTotalImp + " + ";
+    if (oppositionTotalImp > 0) additionString += oppositionTotalImp + " + ";
+
+    // Remove trailing " + " if it exists
+    additionString = additionString.replace(/ \+ $/, "");
+
     // Update the display
-    document.getElementById('total-imp').textContent = 
-        `Add digit impairment % CMC + MP + IP = ${totalDigitImp} DT = ${handImp} HD`;
+    if (additionString) {
+        document.getElementById('total-imp').textContent = 
+            `ADD: ${additionString} = ${totalDigitImp} DT = ${handImp} HD`;
+    } else {
+        document.getElementById('total-imp').textContent = 
+            `ADD: 0 DT = 0 HD`;
+    }
 }
 
 // Add event listeners to all input fields
