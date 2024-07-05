@@ -543,9 +543,15 @@ function updateImpairment() {
     let oppositionTotalImp = Math.max(oppositionImp, oppositionAnkylosisImp);
     document.getElementById('opposition-imp').textContent = oppositionTotalImp;
 
-    // Total Impairment
-    const totalImp = ipTotalImp + mpTotalImp + radialAbductionTotalImp + cmcAdductionTotalImp + oppositionTotalImp;
-    document.getElementById('total-imp').textContent = totalImp || 0;
+// Total Digit Impairment
+    const totalDigitImp = ipTotalImp + mpTotalImp + radialAbductionTotalImp + cmcAdductionTotalImp + oppositionTotalImp;
+    
+    // Calculate Hand Impairment (40% of Digit Impairment)
+    const handImp = Math.round(totalDigitImp * 0.4);
+
+    // Update the display
+    document.getElementById('total-imp').textContent = 
+        `Add digit impairment % CMC + MP + IP = ${totalDigitImp} DT = ${handImp} HD`;
 }
 
 // Add event listeners to all input fields
