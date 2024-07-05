@@ -541,16 +541,20 @@ function updateImpairment() {
     // Calculate Hand Impairment (40% of Digit Impairment)
     const handImp = Math.round(totalDigitImp * 0.4);
 
-    // Create the addition string
-    let additionString = "";
-    if (ipTotalImp > 0) additionString += ipTotalImp + " + ";
-    if (mpTotalImp > 0) additionString += mpTotalImp + " + ";
-    if (radialAbductionTotalImp > 0) additionString += radialAbductionTotalImp + " + ";
-    if (cmcAdductionTotalImp > 0) additionString += cmcAdductionTotalImp + " + ";
-    if (oppositionTotalImp > 0) additionString += oppositionTotalImp + " + ";
+    // Create an array of non-zero impairments
+    let impairments = [
+        { value: ipTotalImp, label: 'IP' },
+        { value: mpTotalImp, label: 'MP' },
+        { value: radialAbductionTotalImp, label: 'Radial Abduction' },
+        { value: cmcAdductionTotalImp, label: 'CMC Adduction' },
+        { value: oppositionTotalImp, label: 'Opposition' }
+    ].filter(imp => imp.value > 0);
 
-    // Remove trailing " + " if it exists
-    additionString = additionString.replace(/ \+ $/, "");
+    // Sort impairments from highest to lowest
+    impairments.sort((a, b) => b.value - a.value);
+
+    // Create the addition string
+    let additionString = impairments.map(imp => imp.value).join(' + ');
 
     // Update the display
     if (additionString) {
